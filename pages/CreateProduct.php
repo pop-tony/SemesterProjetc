@@ -127,6 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Products</title>
+    <link rel="stylesheet" href="../styles/datadesplay.css">
 </head>
 <body>
     <a href='../MyProducts.html'> Back to Store </a> <br>

@@ -32,6 +32,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Products</title>
+    <link rel="stylesheet" href="../styles/datadesplay.css">
 </head>
 <body>
 
@@ -40,6 +41,7 @@
             <th>Product Id</th>
             <th>Product Name</th>
             <th>Product Type</th>
+            <th>Product Price</th>
             <th>Product Price</th>
             <th>Product Description</th>
             <th>Product Image</th>
@@ -63,6 +65,7 @@
                         <td>$row[product_name]</td>
                         <td>$row[product_type]</td>
                         <td>$row[price]</td>
+                        <td>$row[brand]</td>
                         <td>$row[pdescription]</td>
                         <td><img src='../images/$row[product_image]' alt='Product Image'></td>
                         <td>$row[created_at]</td>
