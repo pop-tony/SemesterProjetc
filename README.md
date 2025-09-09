@@ -17,12 +17,12 @@ Xampp
                 product_id INT AUTO_INCREMENT PRIMARY KEY,
                 product_type VARCHAR(20),
                 product_name VARCHAR(20) NOT NULL,
-                price DECIMAL(10, 2) DEFAULT 0,
+                price DECIMAL(10, 2) DEFAULT 0.00,
                 product_image VARCHAR(255),
                 pdescription VARCHAR(255),
                 brand VARCHAR(100),
-                created_at DEFAULT CURRENT_TIMESTAMP(),
-                updated_at DEFAULT ON UPDATE CURRENT_TIMESTAMP(),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 expire_at DATE
             );
         Then you can see your table by typing:
