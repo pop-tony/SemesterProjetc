@@ -7,7 +7,6 @@
     
     $upd_id = "";
     $product_id = "";
-    $product_id = "";
     $product_name = "";
     $price = "";
     $product_type = "";
@@ -15,6 +14,7 @@
     $brand = "";
     $entry_date = "";
     $expire_date = "";
+    $imageNewName = "";
 
     $product_name_err = $price_err = $publish_date_err = "";
     $valid = true;
@@ -39,6 +39,14 @@
             if(mysqli_num_rows($query_run) > 0){
                 $info = $query_run->fetch_assoc();
                 $product_id = $info["product_id"];
+                $product_name = $info["product_name"];
+                $price = $info["price"];
+                $product_type = $info["product_type"];
+                $product_description = $info["pdescription"];
+                $brand = $info["brand"];
+                $entry_date = $info["created_at"];
+                $expire_date = $info["expire_at"];
+                $imageNewName = $info["product_image"];
             }
             else{
                 $how_far_message = "No record found";
@@ -48,25 +56,23 @@
             $how_far_message = "Could not get data";
         }
 
-
     }
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-             
-        $upd_id = $_POST["product_id"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['create_product'])) {
 
-        if (isset($_POST['update_product'])){
+            $upd_id = $_POST["product_id"];
 
             if ($_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
-            $uploadOk = 0;
-            }else{
+                $uploadOk = 0;
+            } else {
                 $target_dir = "C:/xampp/htdocs/EndOfSemProject/images/"; // folder to store uploaded images
                 $image_full_name = $_FILES["image"]["name"];
                 $image_ext = explode(".", $image_full_name);
                 $actual_image_ext = strtolower(end($image_ext));
 
-                $imageNewName = uniqid("", true).".".$actual_image_ext;
-                $imageNewDir = $target_dir.$imageNewName;
+                $imageNewName = uniqid("", true) . "." . $actual_image_ext;
+                $imageNewDir = $target_dir . $imageNewName;
 
                 $uploadOk = 1;
                 $imageFileType = strtolower(pathinfo($image_full_name, PATHINFO_EXTENSION));
@@ -88,7 +94,7 @@
                 }
 
                 // Check file size
-                if ($_FILES["image"]["size"] > 500000) {
+                if ($_FILES["image"]["size"] > 5000000) {
                     echo "Sorry, your file is too large.";
                     $uploadOk = 0;
                 }
@@ -96,7 +102,7 @@
                 // Check if $uploadOk is set to 0 by an error
                 if ($uploadOk == 0) {
                     $how_far_message = "Sorry, your file was not uploaded.";
-                // if everything is ok, try to upload file
+                    // if everything is ok, try to upload file
                 } else {
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $imageNewDir)) {
                         $how_far_message = "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
@@ -106,65 +112,61 @@
                 }
             }
 
-            if(empty($_POST["product_name"])){
+            if (empty($_POST["product_name"])) {
                 $product_name_err = "Product Name Required!";
                 $valid = false;
             }
-            if(empty($_POST["price"])){
+            if (empty($_POST["price"])) {
                 $price_err = "Price Required!";
                 $valid = false;
             }
-            elseif(empty($_POST["publish_date"])){
+            if (empty($_POST["publish_date"])) {
                 $publish_date_err = "Date Required!";
                 $valid = false;
             }
-            try {
-            $query = "SELECT product_name FROM products WHERE product_name = ?";
-            $stmt = $conn->prepare($query);
-            $product_name = test_input($_POST["product_name"]);
-            $stmt->bind_param("s", $product_name);
-            $stmt->execute();
-            $result = $stmt->get_result();
 
-            if (mysqli_num_rows($result) > 0) {
-                $how_far_message = "Product Already Exist!";
-                $valid = false;
-            }
+            try {
+                $query = "SELECT product_name FROM products WHERE product_name = ? AND product_id != ?";
+                $stmt = $conn->prepare($query);
+                $product_name = test_input($_POST["product_name"]);
+                $stmt->bind_param("ss", $product_name, $upd_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if (mysqli_num_rows($result) > 0) {
+                    $how_far_message = "Product Already Exist!";
+                    $valid = false;
+                }
             } catch (mysqli_sql_exception $e) {
                 $how_far_message = "An error occurred: " . $e->getMessage();
                 $valid = false;
             }
 
-        }
-        if($valid){
-            $product_name = test_input($_POST["product_name"]);
-            $price = test_input($_POST["price"]);
-            $product_type = test_input($_POST["ptype"]);
-            $product_description = test_input($_POST["pdescription"]);
-            $brand = test_input($_POST["brand"]);
-            $entry_date = test_input($_POST["publish_date"]);
-            $expire_date = test_input($_POST["expire_date"]);
-        
+            if ($valid) {
+                $product_name = test_input($_POST["product_name"]);
+                $price = test_input($_POST["price"]);
+                $product_type = test_input($_POST["ptype"]);
+                $product_description = test_input($_POST["pdescription"]);
+                $brand = test_input($_POST["brand"]);
+                $entry_date = test_input($_POST["publish_date"]);
+                $expire_date = test_input($_POST["expire_date"]);
 
-            $sql2 = "UPDATE products
-                     SET product_name = '$product_name', product_type = '$product_type', pdescription = '$product_description', brand = '$brand', product_image = '$imageNewDir', price = '$price', created_at = '$publish_date', created_at = '$publish_date'
-                     WHERE product_id = $upd_id";
-            $query_run = "";
+               $sql = "UPDATE products
+                        SET product_name = ?, product_type = ?, pdescription = ?, brand = ?, product_image = ?, price = ?, created_at = ?, expire_at = ?
+                        WHERE product_id = ?";
 
-            try {
-                $stmt = mysqli_prepare($conn, $sql);
-                mysqli_stmt_bind_param($stmt, "sssssdss", $product_name, $product_type, $product_description, $brand, $imageNewName, $price, $entry_date, $expire_date);
-                mysqli_stmt_execute($stmt);
-                echo "<html> <a href='ReadProducts.php'> View Products </a> <br>";
-                $how_far_message = "Product Updated!";
-            } catch (mysqli_sql_exception $e) {
-                $how_far_message = "An error occurred: " . $e->getMessage();
-                echo $how_far_message;
+                try {
+                    $stmt = mysqli_prepare($conn, $sql);
+                    mysqli_stmt_bind_param($stmt, "sssssdsss", $product_name, $product_type, $product_description, $brand, $imageNewName, $price, $entry_date, $expire_date, $upd_id);
+                    mysqli_stmt_execute($stmt);
+                    echo "<html> <a href='ReadProducts.php'> View Products </a> <br>";
+                    $how_far_message = "Product Udated!";
+                } catch (mysqli_sql_exception $e) {
+                    $how_far_message = "An error occurred: " . $e->getMessage();
+                    echo $how_far_message;
+                }
             }
-
-            exit;
         }
-
     }
 
 ?>
@@ -179,29 +181,35 @@
     <link rel="stylesheet" href="../styles/datadesplay.css">
 </head>
 <body>
-    <a href='../MyProducts.html'> Back to Library </a> <br>
+    <a class = 'back-home' href='../MyProducts.html'> Back to Library </a> <br>
+
+    <div class="message">
+        <?php
+            echo $how_far_message;
+        ?>
+    </div>
 
 <div class="signup" id="signupp">
-        <form action="CreateProduct.php" method="post" enctype="multipart/form-data">
+        <form action="UpdateProduct.php" method="post" enctype="multipart/form-data">
             <label for="sproduct_name" id="slproduct_name">Name of Product</label>
-            <input id="sproduct_name" name="product_name" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["product_name"] : " "; ?>">
-            <span class="error" id="erro1">* <?php echo $product_name_err;?></span>
+            <input id="sproduct_name" name="product_name" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["product_name"] : $product_name; ?>">
+            <span class="error" id="error1">* <?php echo $product_name_err;?></span>
             <br>
             <br>
             <label for="stype">Type</label>
-            <input type="text" id="stype" name="ptype" value="<?php if(isset($_POST['create_product'])) { echo $_POST["ptype"];} ?>">
+            <input type="text" id="stype" name="ptype" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["ptype"] : $product_type; ?>">
             <br>
             <br>
             <label for="sdiscription">Description</label>
-            <input type="text" id="sdescription" name="pdescription" value="<?php if(isset($_POST['create_product'])) { echo $_POST["pdescription"];} ?>">
+            <input type="text" id="sdescription" name="pdescription" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["pdescription"] : $product_description; ?>">
             <br>
             <br>
             <label for="sprice">Price</label>
-            <input type="number" min="0" step="0.01" id="sprice" name="price" value="<?php if(isset($_POST['create_product'])) { echo $_POST["price"];} ?>">
+            <input type="number" min="0" step="0.01" id="sprice" name="price" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["price"] : $price; ?>">
             <span class="error" id="error2">* <?php echo $price_err; ?></span>
             <br>
             <label for="sbrand">Brand</label>
-            <input type="text" id="sbrand" name="brand" value="<?php if(isset($_POST['create_product'])) { echo $_POST["brand"];} ?>">
+            <input type="text" id="sbrand" name="brand" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["brand"] : $brand; ?>">
             <br>
             <br>
             <label for="spublish_date" id="date">Date of Entry</label>
@@ -215,6 +223,7 @@
             <br>
             <label for="image" id="pimage">Image</label>
             <input type="file" name="image" id="image" accept="image/*">
+            <input type='hidden' name='product_id' value='<?php echo $product_id;?>'>
             <input type="submit" name="create_product" value="Update" class="btn" id="sbtn1">
         </form>
         <br>

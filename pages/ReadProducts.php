@@ -13,19 +13,26 @@
     <link rel="stylesheet" href="../styles/datadesplay.css">
 </head>
 <body>
+    <?php echo "<html> <br/> <a class = 'back-home' href='../MyProducts.html'> Back to Store </a>";?>
+
+    <div class="message">
+        <?php
+            echo $how_far_message;
+        ?>
+    </div>
 
     <table class="product_table">
         <tr>
-            <th>Product Id</th>
-            <th>Product Name</th>
-            <th>Product Type</th>
-            <th>Product Price</th>
-            <th>Product Price</th>
-            <th>Product Description</th>
-            <th>Product Image</th>
-            <th>Entry Date</th>
-            <th>Updated Date</th>
-            <th>Expire Date</th>
+            <th class="t-head">Product Id</th>
+            <th class="t-head">Product Name</th>
+            <th class="t-head">Product Type</th>
+            <th class="t-head">Product Price</th>
+            <th class="t-head">Product Brand</th>
+            <th class="t-head">Product Description</th>
+            <th class="t-head">Product Image</th>
+            <th class="t-head">Entry Date</th>
+            <th class="t-head">Updated Date</th>
+            <th class="t-head">Expire Date</th>
         </tr>
 
         <?php
@@ -39,30 +46,30 @@
                 foreach($query_run as $row){
                     echo "
                     <tr>
-                        <td>$row[product_id]</td>
-                        <td>$row[product_name]</td>
-                        <td>$row[product_type]</td>
-                        <td>$row[price]</td>
-                        <td>$row[brand]</td>
-                        <td>$row[pdescription]</td>
-                        <td><img src='../images/$row[product_image]' alt='Product Image'></td>
-                        <td>$row[created_at]</td>
-                        <td>$row[updated_at]</td>
-                        <td>$row[expire_at]</td>
+                        <td class='t-data'>$row[product_id]</td>
+                        <td class='t-data'>$row[product_name]</td>
+                        <td class='t-data'>$row[product_type]</td>
+                        <td class='t-data'>$row[price]</td>
+                        <td class='t-data'>$row[brand]</td>
+                        <td class='t-data'>$row[pdescription]</td>
+                        <td class='t-data'><img src='../images/$row[product_image]' alt='Product Image'></td>
+                        <td class='t-data'>$row[created_at]</td>
+                        <td class='t-data'>$row[updated_at]</td>
+                        <td class='t-data'>$row[expire_at]</td>
                     </tr>";
                 };
 
-                echo "<html> <a href='../MyProducts.html'> Back to Store </a>";
+                //echo "<html> <a class = 'back-home' href='../MyProducts.html'> Back to Store </a>";
             }
             else{
                 $how_far_message = "No record found";
-                echo $how_far_message;
-                echo "<html> <br/> <a href='../MyProducts.html'> Back to Store </a>";
+                //echo $how_far_message;
+                
             }
         }
         catch(mysqli_sql_exception){
             $how_far_message = "Could not get data";
-            echo "<html> <a href='../MyProducts.html'> Back to Store </a>";
+            //echo "<html> <a class = 'back-home' href='../MyProducts.html'> Back to Store </a>";
         }
         
     ?>

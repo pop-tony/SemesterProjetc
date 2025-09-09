@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="../styles/datadesplay.css">
 </head>
 <body>
-    <a href='../MyProducts.html'> Back to Store </a> <br>
+    <a class = 'back-home' href='../MyProducts.html'> Back to Store </a> <br>
 
     <div class="message">
         <?php

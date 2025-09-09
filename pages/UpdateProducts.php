@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../styles/datadesplay.css">
 </head>
 <body>
-    <a href='../MyProducts.html'> Back to Store </a> <br>
+    <a class = 'back-home' href='../MyProducts.html'> Back to Store </a> <br>
 
     <div class="message">
         <?php
@@ -23,16 +23,16 @@
 
     <table class="product_table">
         <tr>
-            <th>Product Id</th>
-            <th>Product Name</th>
-            <th>Product Type</th>
-            <th>Product Price</th>
-            <th>Product Price</th>
-            <th>Product Description</th>
-            <th>Product Image</th>
-            <th>Entry Date</th>
-            <th>Updated Date</th>
-            <th>Expire Date</th>
+            <td class='t-head'>Product Id</th>
+            <td class='t-head'>Product Name</th>
+            <td class='t-head'>Product Type</th>
+            <td class='t-head'>Product Price</th>
+            <td class='t-head'>Product Brand</th>
+            <td class='t-head'>Product Description</th>
+            <td class='t-head'>Product Image</th>
+            <td class='t-head'>Entry Date</th>
+            <td class='t-head'>Updated Date</th>
+            <td class='t-head'>Expire Date</th>
         </tr>
 
         <?php
@@ -47,17 +47,17 @@
                 foreach($query_run as $row){
                     echo "
                     <tr>
-                        <td>$row[product_id]</td>
-                        <td>$row[product_name]</td>
-                        <td>$row[product_type]</td>
-                        <td>$row[price]</td>
-                        <td>$row[brand]</td>
-                        <td>$row[pdescription]</td>
-                        <td><img src='../images/$row[product_image]' alt='Product Image'></td>
-                        <td>$row[created_at]</td>
-                        <td>$row[updated_at]</td>
-                        <td>$row[expire_at]</td>
-                        <td>
+                        <td class='t-data'>$row[product_id]</td>
+                        <td class='t-data'>$row[product_name]</td>
+                        <td class='t-data'>$row[product_type]</td>
+                        <td class='t-data'>$row[price]</td>
+                        <td class='t-data'>$row[brand]</td>
+                        <td class='t-data'>$row[pdescription]</td>
+                        <td class='t-data'><img src='../images/$row[product_image]' alt='Product Image'></td>
+                        <td class='t-data'>$row[created_at]</td>
+                        <td class='t-data'>$row[updated_at]</td>
+                        <td class='t-data'>$row[expire_at]</td>
+                        <td class='t-data'>
                             <form action='UpdateProduct.php' method='GET'> 
                                 <input type='hidden' name='product_id' value='$row[product_id]'>
                                 
