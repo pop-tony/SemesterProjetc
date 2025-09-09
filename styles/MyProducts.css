@@ -106,7 +106,6 @@ header button{
 
 .texts{
     z-index: 1;
-    margin: 10px;
     font-weight: bold;
     color: rgb(181, 206, 228);
 }
@@ -127,6 +126,8 @@ footer{
 }
 
 .slider{
+    border-radius: 5px;
+    margin-right: 20px;
     float: right;
     width: fit-content;
     height: fit-content;
@@ -179,4 +180,8 @@ footer{
 @keyframes fade {
     from {opacity: .5}
     to {opacity: 1}
+}
+
+.error{
+    color: rgb(203, 55, 55);
 }
