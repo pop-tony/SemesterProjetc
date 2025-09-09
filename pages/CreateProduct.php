@@ -5,6 +5,8 @@ $product_name_err = $price_err = $publish_date_err = "";
 $valid = true;
 $imageNewDir = "";
 $how_far_message = "";
+$imagesArr = [];
+$imagesToDisplay = [];
 
 function test_input($data) {
     $data = htmlspecialchars($data);
@@ -57,9 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $imageNewDir)) {
                     $how_far_message = "The file " . htmlspecialchars(basename($_FILES["image"]["name"])) . " has been uploaded.";
+                    array_push($imagesArr, $imageNewName);
+                    $imagesToDisplay = array_slice($imagesArr, -4);
                 } else {
                     $how_far_message = "Sorry, there was an error uploading your file.";
                 }
+
             }
         }
 
