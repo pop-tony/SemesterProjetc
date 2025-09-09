@@ -66,7 +66,7 @@
             if ($_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
                 $uploadOk = 0;
             } else {
-                $target_dir = "C:/xampp/htdocs/EndOfSemProject/images/"; // folder to store uploaded images
+                $target_dir = "../images/"; // folder to store uploaded images
                 $image_full_name = $_FILES["image"]["name"];
                 $image_ext = explode(".", $image_full_name);
                 $actual_image_ext = strtolower(end($image_ext));
