@@ -15,6 +15,7 @@
     $entry_date = "";
     $expire_date = "";
     $imageNewName = "";
+    $display_howfar = false;
 
     $product_name_err = $price_err = $publish_date_err = "";
     $valid = true;
@@ -50,6 +51,7 @@
             }
             else{
                 $how_far_message = "No record found";
+                $display_howfar = true;
             }
         }
         catch(mysqli_sql_exception){
@@ -120,8 +122,8 @@
                 $price_err = "Price Required!";
                 $valid = false;
             }
-            if (empty($_POST["publish_date"])) {
-                $publish_date_err = "Date Required!";
+            if (empty($_POST["qantity"])) {
+                $publish_date_err = "Qantity Required!";
                 $valid = false;
             }
 
@@ -134,7 +136,7 @@
                 $result = $stmt->get_result();
 
                 if (mysqli_num_rows($result) > 0) {
-                    $how_far_message = "Product Already Exist!";
+                    $how_far_message = "Product Already Exist!, Update the Quantity instead!";
                     $valid = false;
                 }
             } catch (mysqli_sql_exception $e) {
@@ -148,16 +150,16 @@
                 $product_type = test_input($_POST["ptype"]);
                 $product_description = test_input($_POST["pdescription"]);
                 $brand = test_input($_POST["brand"]);
-                $entry_date = test_input($_POST["publish_date"]);
+                $quantity= test_input($_POST["quantity"]);
                 $expire_date = test_input($_POST["expire_date"]);
 
                $sql = "UPDATE products
-                        SET product_name = ?, product_type = ?, pdescription = ?, brand = ?, product_image = ?, price = ?, created_at = ?, expire_at = ?
+                        SET product_name = ?, product_type = ?, pdescription = ?, brand = ?, product_image = ?, price = ?, product_quantity = ?, expire_at = ?
                         WHERE product_id = ?";
 
                 try {
                     $stmt = mysqli_prepare($conn, $sql);
-                    mysqli_stmt_bind_param($stmt, "sssssdsss", $product_name, $product_type, $product_description, $brand, $imageNewName, $price, $entry_date, $expire_date, $upd_id);
+                    mysqli_stmt_bind_param($stmt, "sssssdsss", $product_name, $product_type, $product_description, $brand, $imageNewName, $price, $quantity, $expire_date, $upd_id);
                     mysqli_stmt_execute($stmt);
                     echo "<html> <a href='ReadProducts.php'> View Products </a> <br>";
                     $how_far_message = "Product Udated!";
@@ -184,9 +186,7 @@
     <a class = 'back-home' href='../MyProducts.html'> Back to Library </a> <br>
 
     <div class="message">
-        <?php
-            echo $how_far_message;
-        ?>
+        <?php echo $_SERVER["REQUEST_METHOD"] == "POST" && $display_howfar ? $how_far_message : ""; ?>
     </div>
 
 <div class="signup" id="signupp">
@@ -212,8 +212,8 @@
             <input type="text" id="sbrand" name="brand" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["brand"] : $brand; ?>">
             <br>
             <br>
-            <label for="spublish_date" id="date">Date of Entry</label>
-            <input type="date" id="spublish_date" name="publish_date">
+            <label for="quantity" id="date">Quantity</label>
+            <input type="number" id="quantity" name="quantity" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["quantity"] : $quantity; ?>">
             <span class="error" id="erro1">* <?php echo $publish_date_err;?></span>
             <br>
             <br>

@@ -76,8 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $price_err = "Price Required!";
             $valid = false;
         }
-        if (empty($_POST["publish_date"])) {
-            $publish_date_err = "Date Required!";
+        if (empty($_POST["quantity"])) {
+            $publish_date_err = "Quantity Required!";
             $valid = false;
         }
 
@@ -104,15 +104,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $product_type = test_input($_POST["ptype"]);
             $product_description = test_input($_POST["pdescription"]);
             $brand = test_input($_POST["brand"]);
-            $entry_date = test_input($_POST["publish_date"]);
+            $quantity = test_input($_POST["quantity"]);
             $expire_date = test_input($_POST["expire_date"]);
 
-            $sql = "INSERT INTO products (product_name, product_type, pdescription, brand, product_image, price, created_at, expire_at)
+            $sql = "INSERT INTO products (product_name, product_type, pdescription, brand, product_image, price, product_quantity, expire_at)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
             try {
                 $stmt = mysqli_prepare($conn, $sql);
-                mysqli_stmt_bind_param($stmt, "sssssdss", $product_name, $product_type, $product_description, $brand, $imageNewName, $price, $entry_date, $expire_date);
+                mysqli_stmt_bind_param($stmt, "sssssdss", $product_name, $product_type, $product_description, $brand, $imageNewName, $price, $quantity, $expire_date);
                 mysqli_stmt_execute($stmt);
                 echo "<html> <a href='ReadProducts.php'> View Products </a> <br>";
                 $how_far_message = "Product Created!";
@@ -166,8 +166,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="sbrand" name="brand" value="<?php if(isset($_POST['create_product'])) { echo $_POST["brand"];} ?>">
             <br>
             <br>
-            <label for="spublish_date" id="date">Date of Entry</label>
-            <input type="date" id="spublish_date" name="publish_date">
+            <label for="quantity" id="date">Quantity</label>
+            <input type="number" id="quantity" name="quantity">
             <span class="error" id="erro1">* <?php echo $publish_date_err;?></span>
             <br>
             <br>

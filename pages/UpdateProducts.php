@@ -1,6 +1,29 @@
 <?php
     include ("DbConnect.php");
     $how_far_message = "";
+    $display_howfar = false;
+    $isAvailable = false;
+
+    $sql = "SELECT * FROM products";
+    $query_run = "";
+
+    try{
+        $query_run = mysqli_query($conn, $sql);
+
+        if(mysqli_num_rows($query_run) > 0){
+            $isAvailable = true;
+        }
+        else{
+            $how_far_message = "No record found";
+            $display_howfar = true;
+            //echo $how_far_message;
+            // echo "<html> <a href='../MyProducts.html'> Back to Library </a>";
+        }
+    }
+    catch(mysqli_sql_exception){
+        $how_far_message = "Could not get data";
+        //echo "<html> <a href='../MyProducts.html'> Back to Library </a>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +39,7 @@
     <a class = 'back-home' href='../MyProducts.html'> Back to Store </a> <br>
 
     <div class="message">
-        <?php
-            echo $how_far_message;
-        ?>
+        <?php echo $_SERVER["REQUEST_METHOD"] == "GET" && $display_howfar ? $how_far_message : "Welcome 🤩"; ?>
     </div>
 
     <table class="product_table">
@@ -30,20 +51,14 @@
             <td class='t-head'>Product Brand</th>
             <td class='t-head'>Product Description</th>
             <td class='t-head'>Product Image</th>
+            <td class='t-head'>Product Quantity</th>
             <td class='t-head'>Entry Date</th>
             <td class='t-head'>Updated Date</th>
             <td class='t-head'>Expire Date</th>
         </tr>
 
         <?php
-        $sql = "SELECT * FROM products";
-        $query_run = "";
-        $how_far_message = "";
-
-        try{
-            $query_run = mysqli_query($conn, $sql);
-
-            if(mysqli_num_rows($query_run) > 0){
+            if($isAvailable){
                 foreach($query_run as $row){
                     echo "
                     <tr>
@@ -54,6 +69,7 @@
                         <td class='t-data'>$row[brand]</td>
                         <td class='t-data'>$row[pdescription]</td>
                         <td class='t-data'><img src='../images/$row[product_image]' alt='Product Image'></td>
+                        <td class='t-data'>$row[product_quantity]</td>
                         <td class='t-data'>$row[created_at]</td>
                         <td class='t-data'>$row[updated_at]</td>
                         <td class='t-data'>$row[expire_at]</td>
@@ -68,18 +84,7 @@
                 };
 
             }
-            else{
-                $how_far_message = "No record found";
-                echo $how_far_message;
-               // echo "<html> <a href='../MyProducts.html'> Back to Library </a>";
-            }
-        }
-        catch(mysqli_sql_exception){
-            $how_far_message = "Could not get data";
-            //echo "<html> <a href='../MyProducts.html'> Back to Library </a>";
-        }
-        
-    ?>
+        ?>
     </table>
 </body>
 </html>
