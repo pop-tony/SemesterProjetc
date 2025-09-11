@@ -19,6 +19,7 @@ Xampp
                 product_name VARCHAR(20) NOT NULL,
                 price DECIMAL(10, 2) DEFAULT 0.00,
                 product_image VARCHAR(255),
+                product_quantity VARCHAR(255),
                 pdescription VARCHAR(255),
                 brand VARCHAR(100),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
