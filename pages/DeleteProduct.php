@@ -3,14 +3,39 @@
     $how_far_message = "";
     $display_howfar = false;
     $isAvailable = false;
+    
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    $sql = "SELECT * FROM products";
+        $del_id = $_POST["product_id"];
+
+        $sql2 = "DELETE FROM products
+                 WHERE product_id = $del_id";
+
+        try{
+            $query_run = mysqli_query($conn, $sql2);
+            if($query_run){
+                $how_far_message = "Product Deleted";
+                $display_howfar = true;
+            }
+            else{
+                $how_far_message = "No record found";
+                $display_howfar = true;
+            }
+        }
+        catch(mysqli_sql_exception){
+            $how_far_message = "Could not delete product";
+            $display_howfar = true;
+            //$how_far_message = "<html> <a href='../MyProducts.html'> Back to Library </a>";
+        }
+    }
+
+     $sql = "SELECT * FROM products";
     $query_run = "";
 
     try{
-        $query_run = mysqli_query($conn, $sql);
+        $query_run1 = mysqli_query($conn, $sql);
 
-        if(mysqli_num_rows($query_run) > 0){
+        if(mysqli_num_rows($query_run1) > 0){
             $isAvailable = true;
         }
         else{
@@ -22,25 +47,8 @@
     }
     catch(mysqli_sql_exception){
         $how_far_message = "Could not get data";
+        $display_howfar = true;
         //echo "<html> <a href='../MyProducts.html'> Back to Library </a>";
-    }
-    
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-        $del_id = $_POST["product_id"];
-
-        $sql2 = "DELETE FROM products
-                 WHERE product_id = $del_id";
-        $query_run = "";
-
-        try{
-            $query_run = mysqli_query($conn, $sql2);
-            $how_far_message = "Product Deleted!";
-        }
-        catch(mysqli_sql_exception){
-            $how_far_message = "Could not delete product";
-            $how_far_message = "<html> <a href='../MyProducts.html'> Back to Library </a>";
-        }
     }
 ?>
 
@@ -77,7 +85,7 @@
 
         <?php
             if($isAvailable){
-                foreach($query_run as $row){
+                foreach($query_run1 as $row){
                     echo "
                     <tr>
                         <td class='t-data'>$row[product_id]</td>
@@ -92,10 +100,10 @@
                         <td class='t-data'>$row[updated_at]</td>
                         <td class='t-data'>$row[expire_at]</td>
                         <td class='t-data'>
-                            <form action='UpdateProduct.php' method='GET'> 
+                            <form action='DeleteProduct.php' method='POST'> 
                                 <input type='hidden' name='product_id' value='$row[product_id]'>
                                 
-                                <input type='submit' id='update' name='update' value='Update'>
+                                <input type='submit' id='update' name='update' value='Delete'>
                             </form>
                         </td>
                     </tr>"; 

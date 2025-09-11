@@ -168,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <br>
                 <label for="quantity" id="date">Quantity</label>
-                <input type="number" id="quantity" name="quantity">
+                <input type="number" min="0" id="quantity" name="quantity">
                 <span class="error" id="erro1">* <?php echo $publish_date_err;?></span>
                 <br>
                 <br>

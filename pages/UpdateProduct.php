@@ -217,7 +217,7 @@
                 <br>
                 <br>
                 <label for="quantity" id="date">Quantity</label>
-                <input type="number" id="quantity" name="quantity" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["quantity"] : $quantity; ?>">
+                <input type="number" min="0" id="quantity" name="quantity" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["quantity"] : $quantity; ?>">
                 <span class="error" id="erro1">* <?php echo $publish_date_err;?></span>
                 <br>
                 <br>
