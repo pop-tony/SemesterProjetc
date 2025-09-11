@@ -23,7 +23,18 @@ td{
     padding: 7px;
 }
 
+.leave{
+    padding: 5px;
+}
+
 .back-home{
+    border: 1px double;
+    border-radius: 5px;
+    margin: 7px;
+    text-decoration: none;
+}
+
+.view-p{
     border: 1px double;
     border-radius: 5px;
     margin: 7px;
@@ -41,6 +52,11 @@ form{
     border: 1px solid;
     border-radius: 5px;
     width: fit-content;
+}
+
+.signup{
+    justify-content: center;
+    display: flex;
 }
 
 .error{

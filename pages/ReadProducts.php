@@ -73,13 +73,6 @@
                         <td class='t-data'>$row[created_at]</td>
                         <td class='t-data'>$row[updated_at]</td>
                         <td class='t-data'>$row[expire_at]</td>
-                        <td class='t-data'>
-                            <form action='UpdateProduct.php' method='GET'> 
-                                <input type='hidden' name='product_id' value='$row[product_id]'>
-                                
-                                <input type='submit' id='update' name='update' value='Update'>
-                            </form>
-                        </td>
                     </tr>"; 
                 };
 
