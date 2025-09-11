@@ -1,11 +1,9 @@
 <?php
     include ("DbConnect.php");
     $how_far_message = "";
-?>
-
-<?php
+    session_start();
     
-    $upd_id = "";
+    $upd_id = $_SESSION['upd_id'];
     $product_id = "";
     $product_name = "";
     $price = "";
@@ -25,20 +23,17 @@
         return $data;
     }
 
-    if($_SERVER["REQUEST_METHOD"] == "GET"){
+    if ($_SERVER["REQUEST_METHOD"]) {
 
-        $upd_id = $_GET["product_id"];
+        $sql1 = "SELECT * FROM products WHERE product_id = ?";
+        $stmt = mysqli_prepare($conn, $sql1);
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $upd_id);
+            mysqli_stmt_execute($stmt);
+            $query_run = mysqli_stmt_get_result($stmt);
 
-        $sql1 = "SELECT *
-                FROM products
-                WHERE product_id = $upd_id";
-        $query_run = "";
-
-        try{
-            $query_run = mysqli_query($conn, $sql1);
-
-            if(mysqli_num_rows($query_run) > 0){
-                $info = $query_run->fetch_assoc();
+            if (mysqli_num_rows($query_run) > 0) {
+                $info = mysqli_fetch_assoc($query_run);
                 $product_id = $info["product_id"];
                 $product_name = $info["product_name"];
                 $price = $info["price"];
@@ -48,22 +43,19 @@
                 $quantity = $info["product_quantity"];
                 $expire_date = $info["expire_at"];
                 $imageNewName = $info["product_image"];
-            }
-            else{
+            } else {
                 $how_far_message = "No record found";
                 $display_howfar = true;
             }
+            mysqli_stmt_close($stmt);
+        } else {
+            $how_far_message = "Preparation failed: " . mysqli_error($conn);
+            $display_howfar = true;
         }
-        catch(mysqli_sql_exception){
-            $how_far_message = "Could not get data";
-        }
-
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST['create_product'])) {
-
-            $upd_id = $_POST["product_id"];
 
             if ($_FILES['image']['error'] == UPLOAD_ERR_NO_FILE) {
                 $uploadOk = 0;

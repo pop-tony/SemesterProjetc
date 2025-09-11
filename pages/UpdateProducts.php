@@ -1,5 +1,6 @@
 <?php
     include ("DbConnect.php");
+    session_start();
     $how_far_message = "";
     $display_howfar = false;
     $isAvailable = false;
@@ -76,7 +77,7 @@
                         <td class='t-data'>
                             <form action='UpdateProduct.php' method='GET'> 
                                 <input type='hidden' name='product_id' value='$row[product_id]'>
-                                
+                                <p style='display:none' $_SESSION[upd_id] = $row[product_id];></p>
                                 <input type='submit' id='update' name='update' value='Update'>
                             </form>
                         </td>
