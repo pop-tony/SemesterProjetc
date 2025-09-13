@@ -3,7 +3,6 @@
     $how_far_message = "";
     session_start();
     
-    $upd_id = $_SESSION['upd_id'];
     $product_id = "";
     $product_name = "";
     $price = "";
@@ -23,8 +22,13 @@
         return $data;
     }
 
-    if ($_SERVER["REQUEST_METHOD"]) {
+    if ($_SERVER["REQUEST_METHOD"] ==  "GET") {
+        $_SESSION['upd_id'] = $_GET['product_id'];
+    }
 
+    $upd_id = $_SESSION['upd_id'];
+
+    if($_SERVER["REQUEST_METHOD"] == "GET" || $_SERVER["REQUEST_METHOD"] == "POST"){
         $sql1 = "SELECT * FROM products WHERE product_id = ?";
         $stmt = mysqli_prepare($conn, $sql1);
         if ($stmt) {

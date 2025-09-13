@@ -61,6 +61,8 @@
         <?php
             if($isAvailable){
                 foreach($query_run as $row){
+                    //$_SESSION['upd_id'] = $row['product_id'];
+
                     echo "
                     <tr>
                         <td class='t-data'>$row[product_id]</td>
@@ -77,7 +79,6 @@
                         <td class='t-data'>
                             <form action='UpdateProduct.php' method='GET'> 
                                 <input type='hidden' name='product_id' value='$row[product_id]'>
-                                <p style='display:none' $_SESSION[upd_id] = $row[product_id];></p>
                                 <input type='submit' id='update' name='update' value='Update'>
                             </form>
                         </td>
