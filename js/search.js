@@ -13,7 +13,7 @@ searchInput.addEventListener("input", e => {
     const value = e.target.value.toLowerCase();
     
     tRows.forEach((row, index) => {
-        const text = Object.values(infos[index]).join(' ').toLowerCase();
+        const text = Object.values(infos[index]).join('').toLowerCase();
         const isVisible = text.includes(value);
         row.style.display = isVisible ? '' : 'none';
     });
