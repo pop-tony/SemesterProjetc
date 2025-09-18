@@ -185,3 +185,90 @@ footer{
 .error{
     color: rgb(203, 55, 55);
 }
+
+/* Tablets (Portrait & Landscape) */
+@media (max-width: 1024px) {
+  header {
+    height: auto;
+    padding: 10px;
+  }
+  header h {
+    font-size: 1.5rem;
+    left: auto;
+    text-align: center;
+    width: auto;
+    position: relative;
+  }
+  .dropdown {
+    position: relative;
+    right: auto;
+    margin: 10px auto;
+    display: block;
+    text-align: center;
+  }
+  .slider, .slides, .slide {
+    width: 80vw;
+    height: auto;
+    margin: auto;
+  }
+  footer {
+    position: relative;
+    text-align: center;
+  }
+}
+
+/* Mobile Devices (Portrait & Landscape) */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+  header {
+    padding: 5px;
+  }
+  header h {
+    font-size: 1.2rem;
+  }
+  .options {
+    width: 8rem;
+    margin-left: -2rem;
+  }
+  .dropdown a {
+    font-size: 1rem;
+    padding: 3px;
+  }
+  .slider, .slides, .slide {
+    width: 90vw;
+  }
+  .slide {
+    height: auto;
+  }
+  .texts {
+    font-size: 0.9rem;
+  }
+  footer {
+    font-size: 12px;
+    padding: 3px;
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 480px) {
+  header h {
+    font-size: 1rem;
+  }
+  .dropdown {
+    top: 0.5rem;
+    right: auto;
+  }
+  .options {
+    width: 7rem;
+    font-size: 0.8rem;
+  }
+  .slider button {
+    font-size: 1.5rem;
+    padding: 5px 10px;
+  }
+  .textsDown, .show {
+    font-size: 0.8rem;
+  }
+}

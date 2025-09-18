@@ -191,40 +191,57 @@
             </div>
 
             <form action="UpdateProduct.php" method="post" enctype="multipart/form-data">
-                <label for="sproduct_name" id="slproduct_name">Name of Product</label>
-                <input id="sproduct_name" name="product_name" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["product_name"] : $product_name; ?>">
-                <span class="error" id="error1">* <?php echo $product_name_err;?></span>
-                <br>
-                <br>
-                <label for="stype">Type</label>
-                <input type="text" id="stype" name="ptype" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["ptype"] : $product_type; ?>">
-                <br>
-                <br>
-                <label for="sdiscription">Description</label>
-                <input type="text" id="sdescription" name="pdescription" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["pdescription"] : $product_description; ?>">
-                <br>
-                <br>
-                <label for="sprice">Price</label>
-                <input type="number" min="0" step="0.01" id="sprice" name="price" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["price"] : $price; ?>">
-                <span class="error" id="error2">* <?php echo $price_err; ?></span>
-                <br>
-                <label for="sbrand">Brand</label>
-                <input type="text" id="sbrand" name="brand" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["brand"] : $brand; ?>">
-                <br>
-                <br>
-                <label for="quantity" id="date">Quantity</label>
-                <input type="number" min="0" id="quantity" name="quantity" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["quantity"] : $quantity; ?>">
-                <span class="error" id="erro1">* <?php echo $publish_date_err;?></span>
-                <br>
-                <br>
-                <label for="expire_date" id="xdate">Date of Expiry</label>
-                <input type="date" id="expire_date" name="expire_date">
-                <br>
-                <br>
-                <label for="image" id="pimage">Image</label>
-                <input type="file" name="image" id="image" accept="image/*">
-                <input type='hidden' name='product_id' value='<?php echo $product_id;?>'>
-                <input type="submit" name="create_product" value="Update" class="btns" id="sbtn1">
+                <div class = "form-group">    
+                    <label for="sproduct_name" id="slproduct_name">Name of Product</label>
+                    <input id="sproduct_name" name="product_name" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["product_name"] : $product_name; ?>">
+                    <span class="error" id="error1">* <?php echo $product_name_err;?></span>
+                    <br>
+                    <br>
+                </div>
+                <div class = "form-group">
+                    <label for="stype">Type</label>
+                    <input type="text" id="stype" name="ptype" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["ptype"] : $product_type; ?>">
+                    <br>
+                    <br>
+                </div>
+                <div class = "form-group">
+                    <label for="sdiscription">Description</label>
+                    <input type="text" id="sdescription" name="pdescription" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["pdescription"] : $product_description; ?>">
+                    <br>
+                    <br>
+                </div>
+                <div class = "form-group">
+                    <label for="sprice">Price</label>
+                    <input type="number" min="0" step="0.01" id="sprice" name="price" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["price"] : $price; ?>">
+                    <span class="error" id="error2">* <?php echo $price_err; ?></span>
+                    <br>
+                    <br>
+                </div>
+                <div class = "form-group">
+                    <label for="sbrand">Brand</label>
+                    <input type="text" id="sbrand" name="brand" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["brand"] : $brand; ?>">
+                    <br>
+                    <br>
+                </div>
+                <div class = "form-group">
+                    <label for="quantity" id="date">Quantity</label>
+                    <input type="number" min="0" id="quantity" name="quantity" value="<?php echo !$valid && isset($_POST['create_product']) ? $_POST["quantity"] : $quantity; ?>">
+                    <span class="error" id="erro1">* <?php echo $publish_date_err;?></span>
+                    <br>
+                    <br>
+                </div>
+                <div class = "form-group">
+                    <label for="expire_date" id="xdate">Date of Expiry</label>
+                    <input type="date" id="expire_date" name="expire_date">
+                    <br>
+                    <br>
+                </div>
+                <div class = "form-group">
+                    <label for="image" id="pimage">Image</label>
+                    <input type="file" name="image" id="image" accept="image/*">
+                    <input type='hidden' name='product_id' value='<?php echo $product_id;?>'>
+                    <input type="submit" name="create_product" value="Update" class="btns" id="sbtn1">
+                </div>
             </form>
             <br>
         </div>
