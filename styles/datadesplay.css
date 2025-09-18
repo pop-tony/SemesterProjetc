@@ -1,26 +1,54 @@
+body{
+    background-color: rgba(174, 215, 230, 1);
+}
+
 .product_table img{
     height: 4rem;
     width: 4rem;
 }
 
 table{
-    border: 1px double;
+    border: none;
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
     margin-top: 20px;
     width: fit-content;
     border-spacing: 10px;
 }
 
 th{
-    border: 1px double;
+    border-radius: 3px;
+    box-shadow: 5px 5px 15px rgba(8, 8, 8, 1);
     padding: 7px;
     width: fit-content;
+    background-color: rgba(255, 255, 255, 1);
+    text-align: center; 
+    vertical-align: middle;
 }
 
 td{
-    border: 1px double;
+    border-radius: 3px;
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
     margin: 7px;
     width: fit-content;
     padding: 7px;
+    background-color: rgba(255, 255, 255, 1);
+    transition: transform 0.2s ease;
+    text-align: center; 
+    vertical-align: middle;
+}
+
+td:hover{
+    transform: scale(1.1);
+}
+
+.btns{
+    border: none;
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
+    background-color: rgba(2, 8, 62, 1);
+    color: rgba(245, 241, 232, 1);
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
 }
 
 .leave{
@@ -28,14 +56,19 @@ td{
 }
 
 .back-home{
-    border: 1px double;
     border-radius: 5px;
     margin: 7px;
     text-decoration: none;
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
+    background-color: rgba(41, 29, 1, 1);
+    color: rgba(245, 241, 232, 1);
+    padding: 5px;
 }
 
 .view-p{
-    border: 1px double;
+    background-color: rgba(41, 29, 1, 1);
+    color: rgba(245, 241, 232, 1);
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
     border-radius: 5px;
     margin: 7px;
     text-decoration: none;
@@ -43,16 +76,65 @@ td{
 
 .message{
     width: fit-content;
-    border: 1px double;
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
     border-radius: 5px;
     margin: 7px;
     margin-left: 15rem;
+    transition: transform 0.2s ease;
+}
+
+.message:hover{
+    transform: scale(1.1);
 }
 
 form{
-    border: 1px solid;
+    border: none;
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
     border-radius: 5px;
     width: fit-content;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input{
+    border: none;
+    box-shadow: 0px 0px 10px rgba(5, 40, 123, 1);
+    border-radius: 5px;
+    width: fit-content;
+    padding: 5px;
+    margin: 5px;
+    outline: none;
+    font-weight: bold;
+}
+
+label{
+    width: 10px;
+}
+
+#stype{
+    margin-left: 80px;
+}
+
+#sdescription{
+    margin-left: 40px;
+}
+
+#sprice{
+    margin-left: 80px;
+}
+
+#sbrand{
+    margin-left: 80px;
+}
+
+#quantity{
+    margin-left: 60px;
+}
+
+.hide{
+    display: none;
 }
 
 .signup{
@@ -62,4 +144,8 @@ form{
 
 .error{
     color: rgb(212, 47, 47);
+}
+
+#search-bar{
+    margin-left: 400px;
 }

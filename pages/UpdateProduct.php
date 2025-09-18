@@ -224,7 +224,7 @@
                 <label for="image" id="pimage">Image</label>
                 <input type="file" name="image" id="image" accept="image/*">
                 <input type='hidden' name='product_id' value='<?php echo $product_id;?>'>
-                <input type="submit" name="create_product" value="Update" class="btn" id="sbtn1">
+                <input type="submit" name="create_product" value="Update" class="btns" id="sbtn1">
             </form>
             <br>
         </div>

@@ -38,6 +38,13 @@
 <body>
     <?php echo "<html> <br/> <a class = 'back-home' href='../MyProducts.html'> Back to Store </a>";?>
 
+    <br>
+    <br>
+    <div class="search-bar">
+        <input type="text" id="search-bar" placeholder="Search..." />
+    <br>
+    <br>
+
     <div class="message">
         <?php echo $_SERVER["REQUEST_METHOD"] == "GET" && $display_howfar ? $how_far_message : "Welcome 🤩"; ?>
     </div>
@@ -58,12 +65,15 @@
         </tr>
 
         <?php
+            $names = [];
+            json_encode($names);
             if($isAvailable){
                 foreach($query_run as $row){
+                    $names[] = ($row['product_name']);
                     echo "
-                    <tr>
+                    <tr class='t-row'>
                         <td class='t-data'>$row[product_id]</td>
-                        <td class='t-data'>$row[product_name]</td>
+                        <td class='t-data name'>$row[product_name]</td>
                         <td class='t-data'>$row[product_type]</td>
                         <td class='t-data'>$row[price]</td>
                         <td class='t-data'>$row[brand]</td>
@@ -80,6 +90,7 @@
         ?>
 
     </table>
+    <script src="../js/search.js"></script>
 </body>
 </html>
 

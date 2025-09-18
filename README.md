@@ -21,7 +21,7 @@ Xampp
                 product_image VARCHAR(255),
                 product_quantity VARCHAR(255),
                 pdescription VARCHAR(255),
-                brand VARCHAR(100),
+                brand VARCHAR(100) DEFAULT "Brandless",
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                 expire_at DATE

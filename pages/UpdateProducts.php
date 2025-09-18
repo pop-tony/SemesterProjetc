@@ -39,23 +39,30 @@
 <body>
     <a class = 'back-home' href='../MyProducts.html'> Back to Store </a> <br>
 
+    <br>
+    <br>
+    <div class="search-bar">
+        <input type="text" placeholder="Search..." />
+    <br>
+    <br>
+
     <div class="message">
         <?php echo $_SERVER["REQUEST_METHOD"] == "GET" && $display_howfar ? $how_far_message : "Welcome 🤩"; ?>
     </div>
 
     <table class="product_table">
         <tr>
-            <td class='t-head'>Product Id</th>
-            <td class='t-head'>Product Name</th>
-            <td class='t-head'>Product Type</th>
-            <td class='t-head'>Product Price</th>
-            <td class='t-head'>Product Brand</th>
-            <td class='t-head'>Product Description</th>
-            <td class='t-head'>Product Image</th>
-            <td class='t-head'>Product Quantity</th>
-            <td class='t-head'>Entry Date</th>
-            <td class='t-head'>Updated Date</th>
-            <td class='t-head'>Expire Date</th>
+            <th class='t-head'>Product Id</th>
+            <th class='t-head'>Product Name</th>
+            <th class='t-head'>Product Type</th>
+            <th class='t-head'>Product Price</th>
+            <th class='t-head'>Product Brand</th>
+            <th class='t-head'>Product Description</th>
+            <th class='t-head'>Product Image</th>
+            <th class='t-head'>Product Quantity</th>
+            <th class='t-head'>Entry Date</th>
+            <th class='t-head'>Updated Date</th>
+            <th class='t-head'>Expire Date</th>
         </tr>
 
         <?php
@@ -64,7 +71,7 @@
                     //$_SESSION['upd_id'] = $row['product_id'];
 
                     echo "
-                    <tr>
+                    <tr class='t-row'>
                         <td class='t-data'>$row[product_id]</td>
                         <td class='t-data'>$row[product_name]</td>
                         <td class='t-data'>$row[product_type]</td>
@@ -79,7 +86,7 @@
                         <td class='t-data'>
                             <form action='UpdateProduct.php' method='GET'> 
                                 <input type='hidden' name='product_id' value='$row[product_id]'>
-                                <input type='submit' id='update' name='update' value='Update'>
+                                <input type='submit' id='update' class='btns' name='update' value='Update'>
                             </form>
                         </td>
                     </tr>"; 
@@ -88,6 +95,7 @@
             }
         ?>
     </table>
+    <script src="../js/search.js"></script>
 </body>
 </html>
 
